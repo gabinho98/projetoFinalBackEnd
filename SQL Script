@@ -1,0 +1,215 @@
+USE [master]
+GO
+/****** Object:  Database [dbSistemaEmpreiteira]    Script Date: 12/09/2022 19:43:38 ******/
+CREATE DATABASE [dbSistemaEmpreiteira]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'dbSistemaEmpreiteira', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.SQLEXPRESS\MSSQL\DATA\dbSistemaEmpreiteira.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'dbSistemaEmpreiteira_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.SQLEXPRESS\MSSQL\DATA\dbSistemaEmpreiteira_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET COMPATIBILITY_LEVEL = 150
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [dbSistemaEmpreiteira].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET  MULTI_USER 
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET QUERY_STORE = OFF
+GO
+USE [dbSistemaEmpreiteira]
+GO
+/****** Object:  Table [dbo].[Cliente]    Script Date: 12/09/2022 19:43:38 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Cliente](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Nome] [varchar](50) NOT NULL,
+	[CNPJ] [varchar](20) NOT NULL,
+	[Telefone] [varchar](15) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[EnderecoCliente]    Script Date: 12/09/2022 19:43:38 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[EnderecoCliente](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Estado] [varchar](50) NOT NULL,
+	[Cidade] [varchar](50) NOT NULL,
+	[Rua] [varchar](50) NOT NULL,
+	[Numero] [varchar](50) NOT NULL,
+	[IdCliente] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[EnderecoObras]    Script Date: 12/09/2022 19:43:38 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[EnderecoObras](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Estado] [varchar](50) NOT NULL,
+	[Cidade] [varchar](50) NOT NULL,
+	[Rua] [varchar](50) NOT NULL,
+	[Numero] [varchar](50) NOT NULL,
+	[IdObras] [int] NOT NULL,
+	[Ativo] [smallint] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Funcionarios]    Script Date: 12/09/2022 19:43:38 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Funcionarios](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Nome] [varchar](50) NOT NULL,
+	[CPF] [varchar](20) NOT NULL,
+	[Cargo] [varchar](15) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Obras]    Script Date: 12/09/2022 19:43:38 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Obras](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Descricao] [varchar](255) NOT NULL,
+	[DatadeInicio] [date] NOT NULL,
+	[PrevisaodeTermino] [date] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[OS]    Script Date: 12/09/2022 19:43:38 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[OS](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[ValorDaObra] [money] NOT NULL,
+	[IdCliente] [int] NOT NULL,
+	[IdFuncionario] [int] NOT NULL,
+	[IdObra] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[EnderecoObras] ADD  DEFAULT ((1)) FOR [Ativo]
+GO
+ALTER TABLE [dbo].[EnderecoCliente]  WITH CHECK ADD  CONSTRAINT [Fk_Id_Cliente] FOREIGN KEY([IdCliente])
+REFERENCES [dbo].[Cliente] ([Id])
+GO
+ALTER TABLE [dbo].[EnderecoCliente] CHECK CONSTRAINT [Fk_Id_Cliente]
+GO
+ALTER TABLE [dbo].[EnderecoObras]  WITH CHECK ADD  CONSTRAINT [FK_IdObras] FOREIGN KEY([IdObras])
+REFERENCES [dbo].[Obras] ([Id])
+GO
+ALTER TABLE [dbo].[EnderecoObras] CHECK CONSTRAINT [FK_IdObras]
+GO
+ALTER TABLE [dbo].[OS]  WITH CHECK ADD  CONSTRAINT [FK_IdOS_Cliente] FOREIGN KEY([IdCliente])
+REFERENCES [dbo].[Cliente] ([Id])
+GO
+ALTER TABLE [dbo].[OS] CHECK CONSTRAINT [FK_IdOS_Cliente]
+GO
+ALTER TABLE [dbo].[OS]  WITH CHECK ADD  CONSTRAINT [FK_IdOS_Funcionarios] FOREIGN KEY([IdFuncionario])
+REFERENCES [dbo].[Funcionarios] ([Id])
+GO
+ALTER TABLE [dbo].[OS] CHECK CONSTRAINT [FK_IdOS_Funcionarios]
+GO
+ALTER TABLE [dbo].[OS]  WITH CHECK ADD  CONSTRAINT [FK_IdOS_Obras] FOREIGN KEY([IdObra])
+REFERENCES [dbo].[Obras] ([Id])
+GO
+ALTER TABLE [dbo].[OS] CHECK CONSTRAINT [FK_IdOS_Obras]
+GO
+USE [master]
+GO
+ALTER DATABASE [dbSistemaEmpreiteira] SET  READ_WRITE 
+GO
